@@ -7,16 +7,13 @@ using UnityEngine;
 public class OldHP : MonoBehaviour
 {
     //Игрок
-    public static int health = 100;
-    public static int armor = 100;
-
-
+    public static float health = 80;
+    public static float maxHealth = 100;
 
 
     //Аптечки(сколько хилит, сколько на это тратится времени, количество аптечек)
     [SerializeField] private int giveHealth;
     [SerializeField] private static float timeToUse;
-    [SerializeField] public static int kitNumber;
     public static bool healing;
 
     private float healTimeCD;
@@ -27,11 +24,9 @@ public class OldHP : MonoBehaviour
     public bool heal;
     private void Awake()
     {
-        kitNumber = 2;
         healing = false;
         giveHealth = 50;
         timeToUse = 1;
-
     }
 
     private void Start()
@@ -45,14 +40,13 @@ public class OldHP : MonoBehaviour
         if (timeToHeal <= 0) Healing(passiveHealing);
 
 
-        if (health < 100 && heal && !Weapons.reloading && !healing && kitNumber > 0)
+        if (health < 100 && heal && !Weapons.reloading && !healing)
         {
             healing = true;
         }
 
         //Хилимся
         if (healing) Healing(giveHealth);
-
 
     }
 
@@ -70,23 +64,12 @@ public class OldHP : MonoBehaviour
     public void TakeDamage(int damage)
     {
         timeToHeal = 5;
-        if (damage > armor)
+        health -= damage;
+        if (health <= 0)
         {
-
-            if (health > damage)
-            {
-                health -= damage - armor;
-                armor = 0;
-            }
-            else
-            {
-                health = 0;
-                Destroy(gameObject);
-            }
-
+            Die();
         }
 
-        else armor -= damage;
     }
 
     //Хилимся, живем
@@ -101,11 +84,15 @@ public class OldHP : MonoBehaviour
             if (OldHP.health + health <= 100) OldHP.health += health;
             else OldHP.health = 100;
 
-            if(healing) --kitNumber;
             healing = false;
             timeToUse = 1;
             HPtext.healOnCD = true;
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
 
