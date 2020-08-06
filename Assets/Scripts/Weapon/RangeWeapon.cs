@@ -8,7 +8,8 @@ public class RangeWeapon : AWeapon
     [SerializeField] private Transform gunPosition;
     [SerializeField] private float attackTime;
 
-    public bool shoot; // это временная переменная, просто чтобы потестить
+    private bool isShoot = false;
+
 
     private void Awake()
     {
@@ -21,22 +22,18 @@ public class RangeWeapon : AWeapon
     }
 
 
-    private void Update()
+    public override void Attack()
     {
-        if(shoot)
+        if (!isShoot)
         {
-            Attack();
+            isShoot = true;
+            bulletSpawner.SpawnObject(gunPosition.position, gunPosition.rotation);
+            Invoke("EnableShoot", attackTime);
         }
     }
 
-    public override void Attack()
+    private void EnableShoot()
     {
-        bulletSpawner.SpawnObject(gunPosition.position, gunPosition.rotation);
-        StartCoroutine(DelayBetweenAttack());
-    }
-
-    private IEnumerator DelayBetweenAttack()
-    {
-        yield return new WaitForSeconds(attackTime);
+        isShoot = false;
     }
 }

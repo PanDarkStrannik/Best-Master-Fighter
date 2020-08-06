@@ -4,6 +4,8 @@
 public class DamageByType
 {
     [SerializeField] private DamageType damageType;
+
+    [Range(0,10000)]
     [SerializeField] private float value;
 
     public DamageType DamageType

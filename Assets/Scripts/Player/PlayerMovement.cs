@@ -32,7 +32,6 @@ public class PlayerMovement : APlayerMovement
         {
             if (moveType == type.Key)
             {
-                Debug.Log("На земле: " + controller.isGrounded);
                 if(!controller.isGrounded)
                 {
                     controller.Move(-transform.up * Time.deltaTime * gravity);

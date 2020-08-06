@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float SensX = 5, SensY = 10;
     [SerializeField] private Vector2 MinMax_Y = new Vector2(-40, 40);
 
+    [SerializeField] private WeaponChanger weaponChanger;
+
 
     private APlayerMovement movement;
     private PlayerInput input;
-    private IWeapon weapons;
+   // private IWeapon weapons;
     private OldHP hp;
 
     private bool isShiftInput=false;
@@ -27,10 +29,11 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        weapons = GetComponent<IWeapon>();
+       // weapons = GetComponent<IWeapon>();
         hp = GetComponent<OldHP>();
         input = new PlayerInput();
         movement = GetComponent<APlayerMovement>();
+        weaponChanger.ChangeWeapon(0);
     }
 
     void Start()
@@ -90,7 +93,7 @@ public class PlayerController : MonoBehaviour
         input.ButtonInputs.Shoot.performed += context =>
         {
             GameEvents.PlayerAction(GameEvents.PlayerEvents.Shoot);
-            weapons.Attack();
+            weaponChanger.CurrentWeapon.Attack();
         };
 
 
@@ -109,6 +112,10 @@ public class PlayerController : MonoBehaviour
             }
         };
         input.ButtonInputs.Heal.performed += context => hp.heal = true;
+
+        input.ButtonInputs.ChangeWeapon.performed += context => weaponChanger.ChangeWeapon(input.ButtonInputs.ChangeWeapon.ReadValue<float>());
+
+
     }
 
     private float ClampAngle(float angle, float min, float max)

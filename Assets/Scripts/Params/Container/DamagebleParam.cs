@@ -12,6 +12,7 @@ public class DamagebleParam
     [Range(0,1000)]
     [SerializeField] private float maxValue;
 
+   
     [SerializeField] private List<DamageByType> weakneses;
     [SerializeField] private List<DamageByType> strongs;
 

@@ -191,6 +191,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ChangeWeapon"",
+                    ""type"": ""Value"",
+                    ""id"": ""17c19c88-728e-4736-8029-6166c96a42a4"",
+                    ""expectedControlType"": """",
+                    ""processors"": ""Clamp(max=1)"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -237,6 +245,39 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62957fad-a3da-4f7b-a3c9-9a413ccc209a"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": ""Mouse And Keybord"",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""491486a2-1d60-4a73-b056-c9ccfbc8546c"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": ""Mouse And Keybord"",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d6ce058-c58e-49ca-a7ee-6817959dbe66"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": ""Invert"",
+                    ""groups"": ""Mouse And Keybord"",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -272,6 +313,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_ButtonInputs_Shoot = m_ButtonInputs.FindAction("Shoot", throwIfNotFound: true);
         m_ButtonInputs_ChangeSpeed = m_ButtonInputs.FindAction("ChangeSpeed", throwIfNotFound: true);
         m_ButtonInputs_Heal = m_ButtonInputs.FindAction("Heal", throwIfNotFound: true);
+        m_ButtonInputs_ChangeWeapon = m_ButtonInputs.FindAction("ChangeWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -391,6 +433,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_ButtonInputs_Shoot;
     private readonly InputAction m_ButtonInputs_ChangeSpeed;
     private readonly InputAction m_ButtonInputs_Heal;
+    private readonly InputAction m_ButtonInputs_ChangeWeapon;
     public struct ButtonInputsActions
     {
         private @PlayerInput m_Wrapper;
@@ -399,6 +442,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Shoot => m_Wrapper.m_ButtonInputs_Shoot;
         public InputAction @ChangeSpeed => m_Wrapper.m_ButtonInputs_ChangeSpeed;
         public InputAction @Heal => m_Wrapper.m_ButtonInputs_Heal;
+        public InputAction @ChangeWeapon => m_Wrapper.m_ButtonInputs_ChangeWeapon;
         public InputActionMap Get() { return m_Wrapper.m_ButtonInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +464,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Heal.started -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnHeal;
                 @Heal.performed -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnHeal;
                 @Heal.canceled -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnHeal;
+                @ChangeWeapon.started -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnChangeWeapon;
+                @ChangeWeapon.performed -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnChangeWeapon;
+                @ChangeWeapon.canceled -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnChangeWeapon;
             }
             m_Wrapper.m_ButtonInputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -436,6 +483,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Heal.started += instance.OnHeal;
                 @Heal.performed += instance.OnHeal;
                 @Heal.canceled += instance.OnHeal;
+                @ChangeWeapon.started += instance.OnChangeWeapon;
+                @ChangeWeapon.performed += instance.OnChangeWeapon;
+                @ChangeWeapon.canceled += instance.OnChangeWeapon;
             }
         }
     }
@@ -463,5 +513,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnChangeSpeed(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
+        void OnChangeWeapon(InputAction.CallbackContext context);
     }
 }

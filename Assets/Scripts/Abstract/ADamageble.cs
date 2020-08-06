@@ -38,10 +38,6 @@ public class ADamageble : MonoBehaviour, IDamageble
     }
 
 
-    private void Damage()
-    {
-
-    }
 
     private /*IEnumerator*/ void PopupCreate(DamagebleParam param, DamageByType weapon)
     {
