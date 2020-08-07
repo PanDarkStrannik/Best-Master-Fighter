@@ -6,65 +6,78 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
-    [SerializeField] private List<GameEvents.PlayerEvents> onPlayerEvents;
-    [SerializeField] private List<AEnemyMovement.EnemyMoveType> moveOnPlayerEvents;
+    [SerializeField] private List<EnemyEventMoveType> enemyMoveEvents;
+    [SerializeField] private List<PlayerEventMoveType> playerMoveEvents;
 
-    [SerializeField] private List<GameEvents.EnemyEvents> onEnemyEvents;
-    [SerializeField] private List<AEnemyMovement.EnemyMoveType> moveOnEnemyEvents;
-
-    private Dictionary<GameEvents.PlayerEvents, AEnemyMovement.EnemyMoveType> onPlayerEventMove;
-    private Dictionary<GameEvents.EnemyEvents, AEnemyMovement.EnemyMoveType> onEnemyEventMove;
+    [SerializeField] private DamagebleParamSum paramSum;
 
     private EnemyMovementController movement;
 
     public void Start()
     {
-        onPlayerEventMove = new Dictionary<GameEvents.PlayerEvents, AEnemyMovement.EnemyMoveType>();
-        onEnemyEventMove = new Dictionary<GameEvents.EnemyEvents, AEnemyMovement.EnemyMoveType>();
-
-        for(int i=0; i<onPlayerEvents.Count;i++)
-        {
-            onPlayerEventMove.Add(onPlayerEvents[i], moveOnPlayerEvents[i]);
-        }
-        for (int i = 0; i < onEnemyEvents.Count; i++)
-        {
-            onEnemyEventMove.Add(onEnemyEvents[i], moveOnEnemyEvents[i]);
-        }
-
         movement = GetComponent<EnemyMovementController>();
+
+        paramSum.Initialize();
+
+        paramSum.ParamNull += CheckType;
 
         GameEvents.PlayerAction += OnPlayerEvent;
         GameEvents.EnemyAction += OnEnemyEvent;
     }
 
+
+    private void OnDisable()
+    {
+        paramSum.Unsubscribe();
+    }
+
+
+
+    private void CheckType(DamagebleParam.ParamType type)
+    {
+        switch(type)
+        {
+            case DamagebleParam.ParamType.Health:
+                gameObject.SetActive(false);
+            break;
+        }
+    }
+
+
     private void OnPlayerEvent(GameEvents.PlayerEvents playerEvent)
     {
-        foreach(var element in onPlayerEvents)
+        if (playerMoveEvents.Count > 0)
         {
-            if(playerEvent==element)
+            foreach (var element in playerMoveEvents)
             {
-                movement.IsDetectingPlayer = false;
-                movement.Move(onPlayerEventMove[playerEvent]);
-                break;
+                if (playerEvent == element.EventType)
+                {
+                    movement.IsDetectingPlayer = false;
+                    movement.Move(element.MoveType);
+                    break;
+                }
             }
+            StartCoroutine(ActivateDetectionBeforeTime(3));
         }
-
-        StartCoroutine(ActivateDetectionBeforeTime(3));
     }
+
+
 
     private void OnEnemyEvent(GameEvents.EnemyEvents enemyEvent)
     {
-        foreach (var element in onEnemyEvents)
+        if (playerMoveEvents.Count > 0)
         {
-            if (enemyEvent == element)
+            foreach (var element in enemyMoveEvents)
             {
-                movement.IsDetectingPlayer = false;
-                movement.Move(onEnemyEventMove[enemyEvent]);
-                break;
+                if (enemyEvent == element.EventType)
+                {
+                    movement.IsDetectingPlayer = false;
+                    movement.Move(element.MoveType);
+                    break;
+                }
             }
+            StartCoroutine(ActivateDetectionBeforeTime(3));
         }
-
-        StartCoroutine(ActivateDetectionBeforeTime(3));
     }
 
 
@@ -76,3 +89,49 @@ public class EnemyController : MonoBehaviour
 }
 
 
+[System.Serializable]
+public class EnemyEventMoveType
+{
+    [SerializeField] private AEnemyMovement.EnemyMoveType enemyMoveType;
+    [SerializeField] private GameEvents.EnemyEvents enemyEventType;
+
+    public AEnemyMovement.EnemyMoveType MoveType
+    {
+        get
+        {
+            return enemyMoveType;
+        }
+    }
+
+    public GameEvents.EnemyEvents EventType
+    {
+        get
+        {
+            return enemyEventType;
+        }
+    }
+
+}
+
+[System.Serializable]
+public class PlayerEventMoveType
+{
+    [SerializeField] private AEnemyMovement.EnemyMoveType enemyMoveType;
+    [SerializeField] private GameEvents.PlayerEvents playerEventType;
+
+    public AEnemyMovement.EnemyMoveType MoveType
+    {
+        get
+        {
+            return enemyMoveType;
+        }
+    }
+
+    public GameEvents.PlayerEvents EventType
+    {
+        get
+        {
+            return playerEventType;
+        }
+    }
+}

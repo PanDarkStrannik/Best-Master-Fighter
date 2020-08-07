@@ -58,6 +58,15 @@ public class DamagebleParam
     }
 
 
+    public DamagebleParam(DamagebleParam damagebleParam)
+    {
+        type = damagebleParam.Type;
+        value = damagebleParam.Value;
+        maxValue = damagebleParam.MaxValue;
+        weakneses = damagebleParam.Weakneses;
+        strongs = damagebleParam.Strongs;
+    }
+
     public DamagebleParam()
     {
         type = ParamType.Health;
@@ -190,9 +199,10 @@ public class DamagebleParam
 
     #endregion
 
+    public enum ParamType
+    {
+        Health, Test
+    }
+
 }
 
-public enum ParamType
-{
-    Health, Test
-}

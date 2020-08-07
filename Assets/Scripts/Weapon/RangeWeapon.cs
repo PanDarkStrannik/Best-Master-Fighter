@@ -17,7 +17,7 @@ public class RangeWeapon : AWeapon
         GameEvents.onBulletDie+=bulletSpawner.ReturnObject;
         foreach(var e in bulletSpawner.spawned_objects)
         {
-            e.GetComponent<SimpleBullet>().Init(weaponData[0]);
+            e.GetComponent<IBullet>().Init(weaponData);
         }
     }
 

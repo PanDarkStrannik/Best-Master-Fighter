@@ -2,51 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ADamageble : MonoBehaviour, IDamageble
+public abstract class ADamageble : MonoBehaviour, IDamageble
 {
-    [SerializeField] private DamagebleParamDatas datas;
+    [SerializeField] protected DamagebleParamDatas datas;
 
-    [SerializeField] private GameObject popup;
+    public delegate void Test();
+    public event Test Nechto;
 
-    [SerializeField] private float popupDestroyTime = 2f;
-
-    [SerializeField] private float popupRangeTime=1f;
-
-    public void ApplyDamage(DamageByType weapon)
+    public DamagebleParamDatas Datas
     {
-        var allWeak = datas.FindAllByWeak(weapon.DamageType);
-
-        Debug.Log("Дамаг вызывался");
-        if (allWeak != null)
+        get
         {
-            //for (int i = 0; i < allWeak.Count; i++)
-            //{
-            //    var tmpPopup = Instantiate(popup, transform.position, Quaternion.identity);
-            //    tmpPopup.GetComponentInChildren<TextMesh>().text = $"Damage {allWeak[i].Type}: {weapon.Value}";
-            //    Destroy(tmpPopup, popupDestroyTime);
-            //    Debug.Log("Слабость у " + allWeak[i].Type + " " + weapon.DamageType);
-            //    yield return new WaitForSeconds(popupRangeTime);
-            //}
-
-            foreach (var weak in allWeak)
-            {
-                Debug.Log("Слабость у " + weak.Type + " " + weapon.DamageType);
-                PopupCreate(weak, weapon);
-            }
-
+            
+            return datas;
+            
         }
     }
 
 
+    public abstract void ApplyDamage(DamageByType weapon);
 
-    private /*IEnumerator*/ void PopupCreate(DamagebleParam param, DamageByType weapon)
+    protected void DamageEvent()
     {
-
-        var tmpPopup = Instantiate(popup, transform.position, Quaternion.identity);
-        tmpPopup.GetComponentInChildren<TextMesh>().text = $"Damage {param.Type}: {weapon.Value}";
-        Destroy(tmpPopup, popupDestroyTime);
-        Debug.Log("Слабость у " + param.Type + " " + weapon.DamageType);
-        //yield return new WaitForSeconds(popupRangeTime);
-
+        Nechto?.Invoke();
     }
+
 }

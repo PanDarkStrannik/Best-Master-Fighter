@@ -14,15 +14,16 @@ public class MiliWeapon : AWeapon
         if (Physics.SphereCast(attackRay, area, out RaycastHit hit, range))
         {
             Debug.Log("Что-то увидели: " + hit.transform.name);
-            if (hit.transform.GetComponentInParent<IDamageble>() != null)
+            if (hit.transform.GetComponent<IDamageble>() != null)
             {
-                var tmp = hit.transform.GetComponentInParent<IDamageble>();
+                var tmp = hit.transform.GetComponent<IDamageble>();
                 foreach (var weapon in weaponData)
                 {
                     tmp.ApplyDamage(weapon);
                 }
             }
         }
+        
     }
 
     public void OnDrawGizmos()

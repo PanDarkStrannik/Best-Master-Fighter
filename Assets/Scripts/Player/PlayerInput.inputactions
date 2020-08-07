@@ -186,6 +186,14 @@
                     "expectedControlType": "",
                     "processors": "Clamp(max=1)",
                     "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "6a45f470-39ee-40b8-bcd8-3bada907721b",
+                    "expectedControlType": "Button",
+                    "processors": "Scale(factor=0)",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -263,6 +271,17 @@
                     "processors": "Invert",
                     "groups": "Mouse And Keybord",
                     "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d207e94-7b84-45c6-ac15-f26391360e6f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

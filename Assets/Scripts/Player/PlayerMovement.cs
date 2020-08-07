@@ -8,7 +8,9 @@ public class PlayerMovement : APlayerMovement
 {
     [SerializeField] private List<PlayerMoveType> moveTypes;
     [SerializeField] private List<float> speeds;
-    [SerializeField] private float gravity=9.8f;
+    [SerializeField] private float g=9.8f;
+    [SerializeField] private float jumpForce = 1f;
+    [SerializeField] private float jumpTime = 1f;
 
     private CharacterController controller;
     private Dictionary<PlayerMoveType, float> moveTypeSpeeds;
@@ -32,17 +34,33 @@ public class PlayerMovement : APlayerMovement
         {
             if (moveType == type.Key)
             {
-                if(!controller.isGrounded)
+                direction = new Vector3(direction.x, 0, direction.z);
+
+                if (Jump)
                 {
-                    controller.Move(-transform.up * Time.deltaTime * gravity);
+                    var correctDirection = (direction.normalized + transform.up) * Time.deltaTime * (jumpForce - g);
+                    controller.Move(correctDirection); 
+                    Invoke("DisableJump", jumpTime);
                 }
-                else
+
+                if (controller.isGrounded)
                 {
                     controller.Move(direction.normalized * Time.deltaTime * type.Value);
                 }
+                else if (!Jump)
+                {
+                    var correctDirection = (direction.normalized - transform.up) * Time.deltaTime * g;
+                    controller.Move(correctDirection);
+                }
+
                 //body.AddForce(direction.normalized * type.Value);
             }
         }
+    }
+
+    private void DisableJump()
+    {
+        Jump = false;
     }
 
 }

@@ -5,7 +5,7 @@ public class DamageByType
 {
     [SerializeField] private DamageType damageType;
 
-    [Range(0,10000)]
+    [Range(0, 10000)]
     [SerializeField] private float value;
 
     public DamageType DamageType
@@ -22,6 +22,18 @@ public class DamageByType
         {
             return value;
         }
+    }
+
+
+    public DamageByType()
+    {
+    }    
+
+    public DamageByType(DamageType damageType, float value)
+    {
+        this.damageType = damageType;
+        this.value = value;
+
     }
 }
 

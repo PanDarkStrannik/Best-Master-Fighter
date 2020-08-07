@@ -90,7 +90,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8665077765742617650}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -126,3 +126,8 @@ MonoBehaviour:
   toDieTime: 1
   body: {fileID: 3970029189126207628}
   speed: 30
+  bulletDatas:
+  - damageType: 0
+    value: 3
+  - damageType: 1
+    value: 2

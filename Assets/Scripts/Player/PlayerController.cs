@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     private APlayerMovement movement;
     private PlayerInput input;
-   // private IWeapon weapons;
     private OldHP hp;
 
     private bool isShiftInput=false;
@@ -29,7 +28,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-       // weapons = GetComponent<IWeapon>();
         hp = GetComponent<OldHP>();
         input = new PlayerInput();
         movement = GetComponent<APlayerMovement>();
@@ -40,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         ButtonsInput();
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnEnable()
@@ -69,6 +68,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+
     private void RotationInput()
     {
         var rotationInput = input.RotationInput.GetRotation.ReadValue<Vector2>();
@@ -96,8 +97,6 @@ public class PlayerController : MonoBehaviour
             weaponChanger.CurrentWeapon.Attack();
         };
 
-
-        //input.ButtonInputs.Reload.performed += context => StartCoroutine(weapons.Reload());
         input.ButtonInputs.ChangeSpeed.performed += context =>
         {
             if (!isShiftInput)
@@ -114,6 +113,9 @@ public class PlayerController : MonoBehaviour
         input.ButtonInputs.Heal.performed += context => hp.heal = true;
 
         input.ButtonInputs.ChangeWeapon.performed += context => weaponChanger.ChangeWeapon(input.ButtonInputs.ChangeWeapon.ReadValue<float>());
+
+        input.ButtonInputs.Jump.performed += context => movement.Jump = true;
+        
 
 
     }

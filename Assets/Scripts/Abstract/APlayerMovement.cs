@@ -7,4 +7,6 @@ public abstract class APlayerMovement : MonoBehaviour, IMovement
     public PlayerMoveType moveType;
     public enum PlayerMoveType {Slow, Fast}
     public abstract void Move(Vector3 direction);
+
+    public bool Jump = false;
 }

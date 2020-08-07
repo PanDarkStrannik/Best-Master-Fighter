@@ -35,7 +35,6 @@ public class WeaponChanger
             }
             currentWeapon = weapons[(int)weaponNum];
             currentWeapon.WeaponObject.SetActive(true);
-            Debug.Log("Сейчас у вас оружие типа: " + weapons[(int)weaponNum].WeaponType);
         }
         
     }
