@@ -13,13 +13,35 @@ public class SimpleDestruct : MonoBehaviour
     [SerializeField] float explousionRadius = 1f;
     [SerializeField] Transform forceTransform;
 
+    [SerializeField] private List<SimpleDestruct> destructs;
 
+    [SerializeField] private int minCountToDestruct=0;
+
+    private int countDestruct = 0;
+    private bool isDestruct;
+
+
+    public delegate void Destruct();
+    public event Destruct DestructEvent;
 
     private void OnEnable()
     {
+        isDestruct = false;
         paramSum.Initialize();
 
         paramSum.ParamNull += CheckType;
+
+        foreach(var destruct in destructs)
+        {
+            destruct.DestructEvent += delegate
+            {
+                countDestruct++;
+                if (countDestruct >= minCountToDestruct)
+                {
+                    DestructObjects();
+                }
+            };
+        }
     }
 
     private void OnDisable()
@@ -27,25 +49,32 @@ public class SimpleDestruct : MonoBehaviour
         paramSum.Unsubscribe();
     }
 
+
     private void CheckType(DamagebleParam.ParamType type)
     {
         if (paramTypes.Count > 0)
         {
             foreach (var myType in paramTypes)
             {
-                if (type == myType)
+                if (type == myType && !isDestruct)
                 {
-                    foreach (var obj in objectsForForce)
-                    {
-                        obj.isKinematic = false;
-                        obj.AddExplosionForce(explousionForce, forceTransform.position, explousionRadius);
-                    }
-
-                    Invoke("ToDeactive", timeToDeactive);
+                    isDestruct = true;
+                    DestructObjects();
                     break;
                 }
             }
         }
+    }
+
+    private void DestructObjects()
+    {
+        foreach (var obj in objectsForForce)
+        {
+            obj.isKinematic = false;
+            obj.AddExplosionForce(explousionForce, forceTransform.position, explousionRadius);
+        }
+
+        Invoke("ToDeactive", timeToDeactive);
     }
 
     private void ToDeactive()
@@ -54,6 +83,7 @@ public class SimpleDestruct : MonoBehaviour
         {
             obj.SetActive(false);
         }
+        DestructEvent?.Invoke();
     }
 
 }

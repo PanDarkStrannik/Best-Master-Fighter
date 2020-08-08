@@ -129,5 +129,5 @@ MonoBehaviour:
   bulletDatas:
   - damageType: 0
     value: 3
-  - damageType: 1
+  - damageType: 2
     value: 2

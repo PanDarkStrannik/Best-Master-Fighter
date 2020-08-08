@@ -39,5 +39,5 @@ public class DamageByType
 
 public enum DamageType
 {
-    Magic, Physic, Mental, Other
+    Magic, Physical, Mental,  Other
 }

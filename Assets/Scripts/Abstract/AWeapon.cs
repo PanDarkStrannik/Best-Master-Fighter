@@ -8,6 +8,7 @@ public abstract class AWeapon : MonoBehaviour, IWeapon
     [SerializeField] protected List<DamageByType> weaponData;
     [SerializeField] protected WeaponType weaponType;
     [SerializeField] protected GameObject weaponObject;
+    [SerializeField] protected Animator animator;
 
     public WeaponType WeaponType
     {
@@ -22,6 +23,14 @@ public abstract class AWeapon : MonoBehaviour, IWeapon
         get
         {
             return weaponObject;
+        }
+    }
+
+    public Animator Animator
+    {
+        get
+        {
+            return animator;
         }
     }
 

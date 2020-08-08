@@ -139,7 +139,6 @@ MonoBehaviour:
     spawned_objects: []
   gunPosition: {fileID: 469933459}
   attackTime: 2
-  shoot: 0
 --- !u!95 &267177541
 Animator:
   serializedVersion: 3
@@ -293,11 +292,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveType: 0
+  Jump: 0
   moveTypes: 0000000001000000
   speeds:
   - 7
   - 14
-  gravity: 9.8
+  g: 9.8
+  jumpForce: 1
+  jumpTime: 1
 --- !u!114 &7230216899918538133
 MonoBehaviour:
   m_ObjectHideFlags: 0

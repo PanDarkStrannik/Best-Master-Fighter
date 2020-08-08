@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInput input;
     private OldHP hp;
 
-    private bool isShiftInput=false;
+    private bool isShiftNotInput = true;
 
     private float moveX, moveY;
    
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovementInput()
     {
-
+        
         var moveDirection = input.MovementInput.GetDirection.ReadValue<Vector2>();
         var correctMove = new Vector3(moveDirection.x, 0, moveDirection.y);
         correctMove = transform.TransformDirection(correctMove);
@@ -99,15 +99,17 @@ public class PlayerController : MonoBehaviour
 
         input.ButtonInputs.ChangeSpeed.performed += context =>
         {
-            if (!isShiftInput)
+            if (isShiftNotInput)
             {
                 movement.moveType = APlayerMovement.PlayerMoveType.Fast;
-                isShiftInput = true;
+                isShiftNotInput = false;
+                  
             }
             else
             {
                 movement.moveType = APlayerMovement.PlayerMoveType.Slow;
-                isShiftInput = false;
+                isShiftNotInput = true;
+                
             }
         };
         input.ButtonInputs.Heal.performed += context => hp.heal = true;
@@ -115,7 +117,26 @@ public class PlayerController : MonoBehaviour
         input.ButtonInputs.ChangeWeapon.performed += context => weaponChanger.ChangeWeapon(input.ButtonInputs.ChangeWeapon.ReadValue<float>());
 
         input.ButtonInputs.Jump.performed += context => movement.Jump = true;
-        
+
+        input.MovementInput.GetDirection.performed += context =>
+         {
+             if (isShiftNotInput)
+             {
+                 weaponChanger.CurrentWeapon.Animator.SetBool("Run", false);
+                 weaponChanger.CurrentWeapon.Animator.SetBool("Move", true);
+             }
+             else
+             {
+                 weaponChanger.CurrentWeapon.Animator.SetBool("Run", true);
+                 weaponChanger.CurrentWeapon.Animator.SetBool("Move", false);
+             }
+         };
+
+        input.MovementInput.GetDirection.canceled += context =>
+        {
+            weaponChanger.CurrentWeapon.Animator.SetBool("Run", false);
+            weaponChanger.CurrentWeapon.Animator.SetBool("Move", false);
+        };
 
 
     }
