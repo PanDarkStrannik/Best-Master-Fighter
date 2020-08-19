@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+
 public class EnemyToPointMove : AEnemyMovement
 {
 
@@ -10,7 +10,6 @@ public class EnemyToPointMove : AEnemyMovement
     
     void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
         navAgent.speed = speed;
 
     }

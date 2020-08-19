@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-[System.Serializable]
+
 public class EnemyRetreatMove : AEnemyMovement
 {
     [SerializeField] private float distance = 3f;
@@ -11,7 +10,6 @@ public class EnemyRetreatMove : AEnemyMovement
 
     void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
         navAgent.speed = speed;
     }
 

@@ -9,39 +9,72 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private List<EnemyEventMoveType> enemyMoveEvents;
     [SerializeField] private List<PlayerEventMoveType> playerMoveEvents;
 
-    [SerializeField] private DamagebleParamSum paramSum;
+    [SerializeField] private float timeAfterDetect=1f;
 
-    private EnemyMovementController movement;
+    [SerializeReference] private EnemyMovementController movement;
+    [SerializeReference] private EnemyDetection detection;
+    [SerializeReference] private EnemyWeaponLogic weapon;
+    [SerializeReference] private MainEvents mainEvents;
+
 
     public void Start()
     {
-        movement = GetComponent<EnemyMovementController>();
 
-        paramSum.Initialize();
-
-        paramSum.ParamNull += CheckType;
+  
 
         GameEvents.PlayerAction += OnPlayerEvent;
         GameEvents.EnemyAction += OnEnemyEvent;
+        detection.DetectingEvent += delegate
+        {
+            StartCoroutine(OnDetecting());
+        };
+
     }
 
 
     private void OnDisable()
     {
-        paramSum.Unsubscribe();
+
+        detection.DetectingEvent -= delegate
+        {
+            StartCoroutine(OnDetecting());
+        };
     }
 
 
-
-    private void CheckType(DamagebleParam.ParamType type)
+    private IEnumerator OnDetecting()
     {
-        switch(type)
+        mainEvents.OnAnimEvent(AnimationController.AnimationType.Start);
+        yield return new WaitForSeconds(timeAfterDetect);
+        while (detection.AlreadyDetect)
         {
-            case DamagebleParam.ParamType.Health:
-                gameObject.SetActive(false);
-            break;
+            var detectionObjects = detection.DetectionsObjects;
+            if (detectionObjects != null)
+            {
+                foreach (var obj in detectionObjects)
+                {
+                    if (obj.CompareTag("Player"))
+                    {
+
+
+                        if (!weapon.Attack(detection.DetectedColider.WeaponType)
+                            || !movement.MoveUponDistance(obj.transform, detection.DetectedColider.Radius, detection.DetectedColider.MoveType))
+                        {
+                            movement.MoveUponDistance(obj.transform, detection.DetectedColider.Radius * 2, detection.DetectedColider.MoveType);
+                        }
+                        break;
+                    }
+                }
+            }
+            yield return new WaitForEndOfFrame();
         }
     }
+
+
+  
+
+
+    #region Действия при эвентах
 
 
     private void OnPlayerEvent(GameEvents.PlayerEvents playerEvent)
@@ -51,13 +84,12 @@ public class EnemyController : MonoBehaviour
             foreach (var element in playerMoveEvents)
             {
                 if (playerEvent == element.EventType)
-                {
-                    movement.IsDetectingPlayer = false;
+                {                    
                     movement.Move(element.MoveType);
                     break;
                 }
             }
-            StartCoroutine(ActivateDetectionBeforeTime(3));
+           // StartCoroutine(ActivateDetectionBeforeTime(3));
         }
     }
 
@@ -71,23 +103,30 @@ public class EnemyController : MonoBehaviour
             {
                 if (enemyEvent == element.EventType)
                 {
-                    movement.IsDetectingPlayer = false;
+                    movement.UponDistance = false;
                     movement.Move(element.MoveType);
                     break;
                 }
             }
-            StartCoroutine(ActivateDetectionBeforeTime(3));
+           // StartCoroutine(ActivateDetectionBeforeTime(3));
         }
     }
 
 
-    private IEnumerator ActivateDetectionBeforeTime(float time)
-    {
-        yield return new WaitForSeconds(time);
-        movement.IsDetectingPlayer = true;
-    }
+    //private IEnumerator ActivateDetectionBeforeTime(float time)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    //movement.IsDetectingPlayer = true;
+    //}
+    #endregion
+
+
+
+
+
 }
 
+#region Вспомогательные классы
 
 [System.Serializable]
 public class EnemyEventMoveType
@@ -135,3 +174,5 @@ public class PlayerEventMoveType
         }
     }
 }
+
+#endregion

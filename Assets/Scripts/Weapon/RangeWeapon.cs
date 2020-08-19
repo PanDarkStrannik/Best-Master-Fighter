@@ -7,6 +7,7 @@ public class RangeWeapon : AWeapon
     [SerializeField] private Spawner bulletSpawner;
     [SerializeField] private Transform gunPosition;
     [SerializeField] private float attackTime;
+    [SerializeField] private float toShootTime=0f;
 
     private bool isShoot = false;
 
@@ -26,14 +27,25 @@ public class RangeWeapon : AWeapon
     {
         if (!isShoot)
         {
+            isAttack = true;
             isShoot = true;
-            bulletSpawner.SpawnObject(gunPosition.position, gunPosition.rotation);
-            Invoke("EnableShoot", attackTime);
+            StartCoroutine(Shoot());
         }
     }
 
-    private void EnableShoot()
+
+
+    private IEnumerator Shoot()
     {
+        events.OnAnimEvent(AnimationController.AnimationType.RangeAttack);
+        yield return new WaitForSeconds(toShootTime);
+        if (isShoot)
+        {
+            bulletSpawner.SpawnObject(gunPosition.position, gunPosition.rotation);
+        }
+        yield return new WaitForSeconds(attackTime);
         isShoot = false;
+        isAttack = false;
     }
+
 }

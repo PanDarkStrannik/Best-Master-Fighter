@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 433461476350330549}
   - component: {fileID: 433461476350330548}
   - component: {fileID: 433461476350330558}
-  - component: {fileID: 433461476350330553}
   - component: {fileID: 433461476350330552}
   m_Layer: 0
   m_Name: Player
@@ -113,23 +112,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &433461476350330553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433461476350330551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9fb1e5fe69901478b1f52d12772fcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveType: 0
-  moveTypes: 0000000001000000
-  speeds:
-  - 2
-  - 7
 --- !u!114 &433461476350330552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa576ee0f4be2db48ad6cadc2e7a9c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraOnPlayer: {fileID: 0}
+  SensX: 5
+  SensY: 10
+  MinMax_Y: {x: -40, y: 40}
+  weaponChanger:
+    weapons: []

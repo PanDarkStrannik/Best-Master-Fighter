@@ -45,7 +45,10 @@ public class DamageArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        enterColiders.Add(other, false);
+        if(!enterColiders.ContainsKey(other))
+        {
+            enterColiders.Add(other, false);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -61,7 +64,10 @@ public class DamageArea : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        enterColiders.Remove(other);
+        if (enterColiders.ContainsKey(other))
+        {
+            enterColiders.Remove(other);
+        }
     }
 
     private IEnumerator GetDamage(Collider other)

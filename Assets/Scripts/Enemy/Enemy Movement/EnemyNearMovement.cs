@@ -20,7 +20,6 @@ public class EnemyNearMovement : AEnemyMovement
 
     private void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
         navAgent.speed = speed;
     }
 

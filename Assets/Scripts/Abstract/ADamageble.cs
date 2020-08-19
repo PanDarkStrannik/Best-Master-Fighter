@@ -6,8 +6,8 @@ public abstract class ADamageble : MonoBehaviour, IDamageble
 {
     [SerializeField] protected DamagebleParamDatas datas;
 
-    public delegate void Test();
-    public event Test Nechto;
+    public delegate void OnDamagedHelper();
+    public event OnDamagedHelper OnDamaged;
 
     public DamagebleParamDatas Datas
     {
@@ -24,7 +24,7 @@ public abstract class ADamageble : MonoBehaviour, IDamageble
 
     protected void DamageEvent()
     {
-        Nechto?.Invoke();
+        OnDamaged?.Invoke();
     }
 
 }

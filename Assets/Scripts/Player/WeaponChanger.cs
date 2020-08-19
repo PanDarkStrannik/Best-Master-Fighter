@@ -29,12 +29,21 @@ public class WeaponChanger
             {
                 weaponNum = 0;
             }
+
+            if (currentWeapon != null)
+            {
+                if(currentWeapon.IsAttack)
+                {
+                    return;
+                }
+            }
             if (currentWeapon != null && currentWeapon != weapons[(int)weaponNum])
             {
                 currentWeapon.WeaponObject.SetActive(false);
             }
             currentWeapon = weapons[(int)weaponNum];
             currentWeapon.WeaponObject.SetActive(true);
+
         }
         
     }

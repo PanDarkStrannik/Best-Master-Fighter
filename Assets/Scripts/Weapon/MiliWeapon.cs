@@ -4,41 +4,29 @@ using UnityEngine;
 
 public class MiliWeapon : AWeapon
 {
-    [SerializeField] private Collider miliWeapon;
-    [SerializeField] private Animator weaponAnim;
+    [SerializeField] private List<Collider> miliWeapons;
     [SerializeField] private float timeWeaponColider=1f;
+    [SerializeField] private float timeToWeaponAttack = 0f;
 
     private bool weaponActive = false;
 
-    //public override void Attack()
-    //{
-    //    Ray attackRay = new Ray(target.position, target.forward);
-    //    if (Physics.SphereCast(attackRay, area, out RaycastHit hit, range))
-    //    {
-    //        Debug.Log("Что-то увидели: " + hit.transform.name);
-    //        if (hit.transform.GetComponent<IDamageble>() != null)
-    //        {
-    //            var tmp = hit.transform.GetComponent<IDamageble>();
-    //            foreach (var weapon in weaponData)
-    //            {
-    //                tmp.ApplyDamage(weapon);
-    //            }
-    //        }
-    //    }
-
-    //}
-
     private void Start()
     {
-        miliWeapon.enabled = false;
-        miliWeapon.isTrigger = true;
+        foreach(var weapon in miliWeapons)
+        {
+            weapon.enabled = false;
+            weapon.isTrigger = true;
+        }
+
     }
+
 
     public override void Attack()
     {
         if (!weaponActive)
         {
-            weaponAnim.SetTrigger("Attack");
+            
+            isAttack = true;
             StartCoroutine(ChangeColider());    
         }
     }
@@ -46,16 +34,29 @@ public class MiliWeapon : AWeapon
     private IEnumerator ChangeColider()
     {
         weaponActive = true;
-        miliWeapon.enabled = weaponActive;
+        yield return new WaitForSeconds(timeToWeaponAttack);
+
+        events.OnAnimEvent(AnimationController.AnimationType.MeleAttack);       
+
+        foreach (var weapon in miliWeapons)
+        {
+            weapon.enabled = weaponActive;
+        }
         yield return new WaitForSeconds(timeWeaponColider);
+        foreach (var weapon in miliWeapons)
+        {
+            weapon.enabled = weaponActive;
+        }
         weaponActive = false;
-        miliWeapon.enabled = weaponActive;
+        isAttack = false;
+
 
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+    
         if(weaponActive)
         {
             if(other.transform.GetComponent<IDamageble>()!=null)

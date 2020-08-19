@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : APlayerMovement
 {
+
     [SerializeField] private List<PlayerMoveType> moveTypes;
     [SerializeField] private List<float> speeds;
-    [SerializeField] private float g=9.8f;
     [SerializeField] private float jumpForce = 1f;
-    [SerializeField] private float jumpTime = 1f;
-
-    private CharacterController controller;
+    [SerializeField] private Rigidbody body;
+    [SerializeField] private SphereCollider groundCheckSphere;
+    [SerializeField] private LayerMask groundCheckMask;
+    [SerializeField] private float g = 9.8f;
+    [SerializeField] private float speedInAir=4f;
+    [SerializeField] private MainEvents movementEvents;
+    [SerializeField] private float correctToAnim = 100f;
     private Dictionary<PlayerMoveType, float> moveTypeSpeeds;
-    //private Rigidbody body;
+    private bool grounded = false;
 
     private void Start()
     {
         moveTypeSpeeds = new Dictionary<PlayerMoveType, float>();
-        controller = GetComponent<CharacterController>();
-        //body = GetComponent<Rigidbody>();
 
         for (int i = 0; i < moveTypes.Count; i++)
         {
@@ -28,39 +28,39 @@ public class PlayerMovement : APlayerMovement
         }
     }
 
+
+    private void FixedUpdate()
+    {
+
+        grounded = Physics.CheckSphere(groundCheckSphere.transform.position,
+            groundCheckSphere.radius, groundCheckMask, QueryTriggerInteraction.Ignore);
+    }
+
+
     public override void Move(Vector3 direction)
     {
-        foreach(var type in moveTypeSpeeds)
+        direction = direction.normalized;
+        foreach (var type in moveTypeSpeeds)
         {
             if (moveType == type.Key)
             {
-                direction = new Vector3(direction.x, 0, direction.z);
-
-                if (Jump)
+                direction = new Vector3(direction.x * type.Value, direction.y * jumpForce, direction.z * type.Value);
+                if (grounded)
                 {
-                    var correctDirection = (direction.normalized + transform.up) * Time.deltaTime * (jumpForce - g);
-                    controller.Move(correctDirection); 
-                    Invoke("DisableJump", jumpTime);
+                    var toAnim = direction.magnitude/correctToAnim;
+                    movementEvents.OnAnimEvent(AnimationController.AnimationType.Movement, toAnim);
+                    body.AddForce(direction * Time.fixedDeltaTime, ForceMode.Impulse);
+                }
+                else
+                {
+                    var newDirection = direction / speedInAir;
+                    newDirection.y = -g;
+                    body.AddForce(newDirection * Time.fixedDeltaTime, ForceMode.Impulse);
                 }
 
-                if (controller.isGrounded)
-                {
-                    controller.Move(direction.normalized * Time.deltaTime * type.Value);
-                }
-                else if (!Jump)
-                {
-                    var correctDirection = (direction.normalized - transform.up) * Time.deltaTime * g;
-                    controller.Move(correctDirection);
-                }
 
-                //body.AddForce(direction.normalized * type.Value);
             }
         }
-    }
-
-    private void DisableJump()
-    {
-        Jump = false;
     }
 
 }
