@@ -14,7 +14,19 @@ public class UI : MonoBehaviour
     [SerializeField] private Text textPlayerHP;
     [SerializeField] private Image imagePlayerHP;
     [SerializeField] private Image imagePlayerMaxHP;
+
+    [SerializeField] private Text HealCDtext;
+    [SerializeField] private Image HealCDimage;
+
+    [SerializeField] private Text TPCDtext;
+    [SerializeField] private Image TPCDimage;
     
+    /*if(спелл на кулдауне) HealCDtext.enabled = true;
+     * else HealCDtext.enabled = false;
+     * HealCDtext.text = (время перезарядки скилла).ToString();
+     * HealCDimage.fillAmount = (оставшееся время перезарядки) / (время перезарядки);
+     * то же самое и для тп
+     */
 
     public static float playerHealth=100f;
     public static float bossHealth=100f;

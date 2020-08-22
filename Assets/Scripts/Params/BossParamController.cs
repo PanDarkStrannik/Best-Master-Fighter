@@ -10,6 +10,7 @@ public class BossParamController : ParamController
     [SerializeField] private MainEvents events;
 
     private bool isFirstCheck = true;
+    private bool isDeadYet = false;
 
     protected override void CheckTypeAndValues(DamagebleParam.ParamType type, float value, float maxValue)
     {
@@ -22,9 +23,10 @@ public class BossParamController : ParamController
                     isFirstCheck = false;
                 }
                 bossUI.ViewHealth(value);
-                if (value <= 0)
+                if (value <= 0 && !isDeadYet)
                 {
                     events.OnAnimEvent(AnimationController.AnimationType.Death);
+                    isDeadYet = true;
                 }
                 break;
         }

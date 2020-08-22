@@ -12,9 +12,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private WeaponChanger weaponChanger;
 
-    [SerializeField] protected DamagebleParamSum paramSum;
+    [SerializeField] private PlayerUI playerUI;
 
-    [SerializeReference] private List<GameObject> deactiveOnDeath;
+    [SerializeField] private Blink blinkAbility;
+
 
     private APlayerMovement movement;
     private PlayerInput input;
@@ -39,45 +40,21 @@ public class PlayerController : MonoBehaviour
         ButtonsInput();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        UI.playerHealth = paramSum.typesValues[DamagebleParam.ParamType.Health];
     }
 
     private void OnEnable()
     {
         input.Enable();
-        paramSum.OnParamNull += CheckType;
-        paramSum.Initialize();
     }
     private void OnDisable()
     {
         input.Disable();
-        paramSum.OnParamNull -= CheckType;
-        paramSum.Unsubscribe();
     }
 
 
     void Update()
     {
-        UI.playerHealth = paramSum.typesValues[DamagebleParam.ParamType.Health];
         RotationInput();
-    }
-
-
-    private void CheckType(DamagebleParam.ParamType type)
-    {
-        switch (type)
-        {
-            case DamagebleParam.ParamType.Health:      
-                foreach (var obj in deactiveOnDeath)
-                {
-                    obj.SetActive(false);
-                }
-                UI.playerHealth = 0;
-                Debug.Log("Игрока убили");
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                break;
-        }
     }
 
 
@@ -138,6 +115,14 @@ public class PlayerController : MonoBehaviour
             }
         };
 
+        input.ButtonInputs.Blink.performed += context =>
+        {
+            if(!blinkAbility.IsAttack)
+            {
+                blinkAbility.Attack();
+                StartCoroutine(playerUI.ReloadTP(blinkAbility.ReloadTime));
+            }
+        };
 
     }
 

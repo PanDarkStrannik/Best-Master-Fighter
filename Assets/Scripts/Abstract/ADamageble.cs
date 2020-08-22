@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class ADamageble : MonoBehaviour, IDamageble
 {
     [SerializeField] protected DamagebleParamDatas datas;
+    [SerializeField] private LayerMask layer;
 
     public delegate void OnDamagedHelper();
     public event OnDamagedHelper OnDamaged;
@@ -13,12 +14,19 @@ public abstract class ADamageble : MonoBehaviour, IDamageble
     {
         get
         {
-            
+
             return datas;
-            
+
         }
     }
 
+    public LayerMask Layer
+    {
+        get
+        {
+            return layer;
+        }
+    }
 
     public abstract void ApplyDamage(DamageByType weapon);
 
@@ -26,5 +34,4 @@ public abstract class ADamageble : MonoBehaviour, IDamageble
     {
         OnDamaged?.Invoke();
     }
-
 }

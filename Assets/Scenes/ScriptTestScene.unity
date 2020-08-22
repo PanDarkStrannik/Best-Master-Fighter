@@ -253,6 +253,9 @@ MonoBehaviour:
       - damageType: 0
         value: 2
       strongs: []
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -336,6 +339,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 182006304, guid: 8b0a9cc3e1b59fb458714885bb49951c, type: 3}
+      propertyPath: deathMenu
+      value: 
+      objectReference: {fileID: 1539612092}
     - target: {fileID: 182006305, guid: 8b0a9cc3e1b59fb458714885bb49951c, type: 3}
       propertyPath: detection
       value: 
@@ -450,13 +457,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 6257935800267185109, guid: 8b0a9cc3e1b59fb458714885bb49951c,
-        type: 3}
-      propertyPath: deathMenu
-      value: 
-      objectReference: {fileID: 1539612092}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b0a9cc3e1b59fb458714885bb49951c, type: 3}
+--- !u!114 &182006304 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 182006304, guid: 8b0a9cc3e1b59fb458714885bb49951c,
+    type: 3}
+  m_PrefabInstance: {fileID: 182006302}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ebd49f7bd60e44681efd533a3916df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &182006305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 182006305, guid: 8b0a9cc3e1b59fb458714885bb49951c,
@@ -605,6 +619,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -742,6 +759,9 @@ MonoBehaviour:
       - damageType: 3
         value: 1
       strongs: []
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -970,6 +990,9 @@ MonoBehaviour:
       - damageType: 0
         value: 2
       strongs: []
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -1661,6 +1684,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -1830,6 +1856,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -2198,6 +2227,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 885063586, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
+      propertyPath: playerUI
+      value: 
+      objectReference: {fileID: 182006304}
     - target: {fileID: 5505282187759526130, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2243,6 +2276,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7230216899918538133, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9,
+        type: 3}
+      propertyPath: playerUI
+      value: 
+      objectReference: {fileID: 182006304}
     - target: {fileID: 7230216899918538134, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2499,6 +2537,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -2731,6 +2772,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -3071,6 +3115,9 @@ MonoBehaviour:
       - damageType: 3
         value: 0
       strongs: []
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -3379,6 +3426,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -3518,8 +3568,10 @@ MonoBehaviour:
     value: 3
   weaponType: 0
   weaponObject: {fileID: 1185134894}
-  weaponAnim: {fileID: 1185134896}
   events: {fileID: 0}
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
   miliWeapons: []
   timeWeaponColider: 1
   timeToWeaponAttack: 0
@@ -3813,6 +3865,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -3936,6 +3991,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -4168,6 +4226,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -4401,6 +4462,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -4629,11 +4693,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Death
       objectReference: {fileID: 0}
+    - target: {fileID: 449805549798534039, guid: e1071d3375b323743906449345f4de9f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 182006304}
     - target: {fileID: 449805549880062427, guid: e1071d3375b323743906449345f4de9f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1680254252}
+      objectReference: {fileID: 182006304}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1071d3375b323743906449345f4de9f, type: 3}
 --- !u!1 &1539612092 stripped
@@ -4877,21 +4946,12 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
---- !u!114 &1680254252 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6257935800267185109, guid: 8b0a9cc3e1b59fb458714885bb49951c,
-    type: 3}
-  m_PrefabInstance: {fileID: 182006302}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc0e73ebede6884dbbe74b4c7eb68c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1728832022
 GameObject:
   m_ObjectHideFlags: 0
@@ -5012,6 +5072,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -5595,6 +5658,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -5734,6 +5800,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1
@@ -5909,6 +5978,9 @@ MonoBehaviour:
       strongs:
       - damageType: 0
         value: 3
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
   popup: {fileID: 8516776377480055771, guid: 96a84c9f80b8fcc4096bd7e98ce57531, type: 3}
   popupDestroyTime: 2
   popupRangeTime: 1

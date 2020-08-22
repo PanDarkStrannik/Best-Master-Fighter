@@ -61,10 +61,13 @@ public class MiliWeapon : AWeapon
         {
             if(other.transform.GetComponent<IDamageble>()!=null)
             {
-                Debug.Log("Что-то задели!");
-                foreach (var data in weaponData)
+                if ((other.transform.GetComponent<ADamageble>().Layer.value & (1 << layer)) == 0)
                 {
-                    other.transform.GetComponent<IDamageble>().ApplyDamage(data);
+                    Debug.Log("Что-то задели!");
+                    foreach (var data in weaponData)
+                    {
+                        other.transform.GetComponent<IDamageble>().ApplyDamage(data);
+                    }
                 }
             }
         }

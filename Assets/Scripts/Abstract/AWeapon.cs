@@ -8,15 +8,16 @@ public abstract class AWeapon : MonoBehaviour, IWeapon
     [SerializeField] protected List<DamageByType> weaponData;
     [SerializeField] protected WeaponType weaponType;
     [SerializeField] protected GameObject weaponObject;
-    [SerializeField] protected Animator weaponAnim;
     [SerializeField] protected MainEvents events;
+    [SerializeField] protected LayerMask layer;
+
 
     protected bool isAttack = false;
 
     public WeaponType WeaponType
     {
         get
-        {
+        {          
             return weaponType;
         }
     }
@@ -29,14 +30,6 @@ public abstract class AWeapon : MonoBehaviour, IWeapon
         }
     }
 
-    public Animator Animator
-    {
-        get
-        {
-            return weaponAnim;
-        }
-    }
-
     public bool IsAttack
     {
         get
@@ -44,6 +37,7 @@ public abstract class AWeapon : MonoBehaviour, IWeapon
             return isAttack;
         }
     }
+
 
     public abstract void Attack();
      

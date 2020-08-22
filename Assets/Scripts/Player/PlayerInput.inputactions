@@ -194,6 +194,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Blink",
+                    "type": "Button",
+                    "id": "262ca9b5-09a6-45b5-8b0e-305f73b60dc3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -282,6 +290,17 @@
                     "processors": "Scale",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6060e051-a22b-47f2-90cb-66b07c3d3c97",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse And Keybord",
+                    "action": "Blink",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

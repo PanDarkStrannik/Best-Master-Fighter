@@ -18,6 +18,15 @@ public class EnemyWeaponLogic : MonoBehaviour
         }
     }
 
+    private GameObject wantDamagedObject;
+    public GameObject WantDamagedObject
+    {
+        get
+        {
+            return wantDamagedObject;
+        }
+    }
+
 
     private void Start()
     {
@@ -59,6 +68,8 @@ public class EnemyWeaponLogic : MonoBehaviour
         {
             if (hit.transform.GetComponent<IDamageble>() != null && !currentWeapon.Weapon.IsAttack)
             {
+                wantDamagedObject = hit.transform.gameObject;
+                Debug.Log("По идее произошла атака");
                 currentWeapon.Weapon.Attack();
                // AnimEvent?.Invoke(AnimationController.AnimationType.Attack);
                 return true;

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IBullet
 {
-    void Init(List<DamageByType> datas);
+    void Init(List<DamageByType> datas, LayerMask layerMask);
 }

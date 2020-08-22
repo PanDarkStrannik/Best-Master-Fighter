@@ -188,7 +188,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 279
 --- !u!95 &449805549412326804
 Animator:
   serializedVersion: 3
@@ -483,8 +483,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 449805549412326805, guid: e1071d3375b323743906449345f4de9f,
-          type: 3}
+      - m_Target: {fileID: 0}
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -824,8 +823,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 449805549412326805, guid: e1071d3375b323743906449345f4de9f,
-          type: 3}
+      - m_Target: {fileID: 0}
         m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:

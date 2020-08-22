@@ -9,9 +9,10 @@ public class SimpleBullet : MonoBehaviour, IBullet
     [SerializeField] private float speed = 5f;
     [SerializeField] private List<DamageByType> bulletDatas;
 
+    private LayerMask layer;
     private bool notFistInit = false;
 
-    public void Init(List<DamageByType> datas)
+    public void Init(List<DamageByType> datas,LayerMask layerMask)
     {
         List<DamageByType> tmp = new List<DamageByType>();
         List<DamageByType> mainWeaponDatas = new List<DamageByType>(datas);
@@ -40,6 +41,7 @@ public class SimpleBullet : MonoBehaviour, IBullet
         }
 
         this.bulletDatas = tmp;
+        layer = layerMask;
 
         notFistInit = true;
     }
@@ -64,11 +66,15 @@ public class SimpleBullet : MonoBehaviour, IBullet
     {
         if (other.gameObject.GetComponent<DamageblePlace>() != null)
         {
-            foreach (var data in bulletDatas)
+            if ((layer.value & other.transform.GetComponent<ADamageble>().Layer.value) != 0)
             {
-                other.gameObject.GetComponent<IDamageble>().ApplyDamage(data);
+                Debug.Log($"{layer.value} & {other.transform.GetComponent<ADamageble>().Layer.value}");
+                foreach (var data in bulletDatas)
+                {
+                    other.gameObject.GetComponent<IDamageble>().ApplyDamage(data);
+                }
+                GameEvents.onBulletDie(gameObject);
             }
-            GameEvents.onBulletDie(gameObject);
         }
 
     }

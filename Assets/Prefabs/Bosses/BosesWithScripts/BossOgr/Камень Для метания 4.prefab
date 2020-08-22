@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6813687396225021031}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 16.09, y: 0, z: -7.77}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 6813687396226456149}
   m_Father: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toDieTime: 5
   body: {fileID: 6813687396225021029}
-  speed: 33
+  speed: 20
   bulletDatas:
   - damageType: 1
     value: 10

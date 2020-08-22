@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class RangeWeapon : AWeapon
 {
-    [SerializeField] private Spawner bulletSpawner;
-    [SerializeField] private Transform gunPosition;
-    [SerializeField] private float attackTime;
-    [SerializeField] private float toShootTime=0f;
+    [SerializeField] protected Spawner bulletSpawner;
+    [SerializeField] protected Transform gunPosition;
+    [SerializeField] protected float attackTime;
+    [SerializeField] protected float toShootTime=0f;
 
-    private bool isShoot = false;
 
 
     private void Awake()
@@ -18,17 +17,16 @@ public class RangeWeapon : AWeapon
         GameEvents.onBulletDie+=bulletSpawner.ReturnObject;
         foreach(var e in bulletSpawner.spawned_objects)
         {
-            e.GetComponent<IBullet>().Init(weaponData);
+            e.GetComponent<IBullet>().Init(weaponData,layer);
         }
     }
 
 
     public override void Attack()
     {
-        if (!isShoot)
+        if (!isAttack)
         {
             isAttack = true;
-            isShoot = true;
             StartCoroutine(Shoot());
         }
     }
@@ -37,15 +35,24 @@ public class RangeWeapon : AWeapon
 
     private IEnumerator Shoot()
     {
-        events.OnAnimEvent(AnimationController.AnimationType.RangeAttack);
+        BeforeShoot();
         yield return new WaitForSeconds(toShootTime);
-        if (isShoot)
+        if (isAttack)
         {
+            InShoot();
             bulletSpawner.SpawnObject(gunPosition.position, gunPosition.rotation);
         }
         yield return new WaitForSeconds(attackTime);
-        isShoot = false;
         isAttack = false;
     }
 
+    protected virtual void BeforeShoot()
+    {
+        events.OnAnimEvent(AnimationController.AnimationType.RangeAttack);
+    }
+
+    protected virtual void InShoot()
+    {
+
+    }
 }

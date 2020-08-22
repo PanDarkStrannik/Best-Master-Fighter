@@ -17,4 +17,6 @@ public class MainEvents : MonoBehaviour
     {
         AnimTypeEventWithFloat?.Invoke(animationType, value);
     }
+
+
 }

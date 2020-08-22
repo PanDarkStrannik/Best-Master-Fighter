@@ -14,16 +14,44 @@ public class EnemyMovementController : MonoBehaviour
     [SerializeReference] private MainEvents mainEvents;
     [SerializeField] private float correctSpeedToAnim=10;
 
+    public bool MoveUponDistance(Transform target, float detectionDistance, AEnemyMovement.EnemyMoveType currentType)
+    {
+        Vector3 toTarget = target.position - transform.position;
+        if (toTarget.magnitude <= detectionDistance)
+        {
+            //var temp = target.position;
+            foreach (var lookObj in lookingObject)
+            {
+                //temp.y = lookObj.position.y;
+                //lookObj.LookAt(temp);
+                TargetRotationFixator.Looking(lookObj, target, TargetRotationFixator.LockRotationAngle.Pitch);
+
+            }
+            mainEvents.OnAnimEvent(AnimationController.AnimationType.Movement, meshAgent.velocity.magnitude / correctSpeedToAnim);
+            Move(currentType, target);
+            return true;
+        }
+        else
+        {
+            mainEvents.OnAnimEvent(AnimationController.AnimationType.Movement, 0);
+        }
+        return false;
+    }
+
+
+
     public void Move(AEnemyMovement.EnemyMoveType currentType, Transform target)
     {
         foreach (var movement in movements)
         {
             if (movement.moveType == currentType)
             {
-                foreach(var lookObj in lookingObject)
-                {
-                    lookObj.LookAt(target);
-                } 
+                 
+                //foreach(var lookObj in lookingObject)
+                //{
+                //    var newLookAt = new Vector3(target.position.x, target.position.y, target.position.z);
+                //    lookObj.rotation.SetLookRotation(newLookAt);
+                //}
                 movement.Move(target.position);
             }
         }
@@ -32,23 +60,6 @@ public class EnemyMovementController : MonoBehaviour
     public void Move(AEnemyMovement.EnemyMoveType currentType)
     {
         Move(currentType, target);
-    }
-
-
-    public bool MoveUponDistance(Transform target, float detectionDistance, AEnemyMovement.EnemyMoveType currentType)
-    {
-        Vector3 toTarget = target.position - transform.position;
-        if (toTarget.magnitude <= detectionDistance)
-        {
-            foreach (var lookObj in lookingObject)
-            {
-                lookObj.LookAt(target);
-            }
-            Move(currentType, target);
-            mainEvents.OnAnimEvent(AnimationController.AnimationType.Movement, meshAgent.velocity.magnitude / correctSpeedToAnim);
-            return true;
-        }
-        return false;
     }
 
 

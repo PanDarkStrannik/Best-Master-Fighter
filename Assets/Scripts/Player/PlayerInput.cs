@@ -207,6 +207,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Blink"",
+                    ""type"": ""Button"",
+                    ""id"": ""262ca9b5-09a6-45b5-8b0e-305f73b60dc3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -297,6 +305,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6060e051-a22b-47f2-90cb-66b07c3d3c97"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse And Keybord"",
+                    ""action"": ""Blink"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -334,6 +353,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_ButtonInputs_Heal = m_ButtonInputs.FindAction("Heal", throwIfNotFound: true);
         m_ButtonInputs_ChangeWeapon = m_ButtonInputs.FindAction("ChangeWeapon", throwIfNotFound: true);
         m_ButtonInputs_Jump = m_ButtonInputs.FindAction("Jump", throwIfNotFound: true);
+        m_ButtonInputs_Blink = m_ButtonInputs.FindAction("Blink", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -455,6 +475,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_ButtonInputs_Heal;
     private readonly InputAction m_ButtonInputs_ChangeWeapon;
     private readonly InputAction m_ButtonInputs_Jump;
+    private readonly InputAction m_ButtonInputs_Blink;
     public struct ButtonInputsActions
     {
         private @PlayerInput m_Wrapper;
@@ -465,6 +486,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Heal => m_Wrapper.m_ButtonInputs_Heal;
         public InputAction @ChangeWeapon => m_Wrapper.m_ButtonInputs_ChangeWeapon;
         public InputAction @Jump => m_Wrapper.m_ButtonInputs_Jump;
+        public InputAction @Blink => m_Wrapper.m_ButtonInputs_Blink;
         public InputActionMap Get() { return m_Wrapper.m_ButtonInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -492,6 +514,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnJump;
+                @Blink.started -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnBlink;
+                @Blink.performed -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnBlink;
+                @Blink.canceled -= m_Wrapper.m_ButtonInputsActionsCallbackInterface.OnBlink;
             }
             m_Wrapper.m_ButtonInputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -514,6 +539,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Blink.started += instance.OnBlink;
+                @Blink.performed += instance.OnBlink;
+                @Blink.canceled += instance.OnBlink;
             }
         }
     }
@@ -543,5 +571,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnHeal(InputAction.CallbackContext context);
         void OnChangeWeapon(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnBlink(InputAction.CallbackContext context);
     }
 }
