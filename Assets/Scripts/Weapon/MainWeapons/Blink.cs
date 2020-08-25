@@ -14,6 +14,7 @@ public class Blink : AWeapon
     [SerializeField] private float timeScaleBeforeBlink=1f;
     [SerializeField] private float timeScaleUntilLayerBlink = 0.5f;
     [SerializeField] private float secondsInLayerBlinkSloumo = 3f;
+    [SerializeField] private float inLayerBlinkDistance = 1f;
 
     private bool isLayerBlink = false;
 
@@ -67,7 +68,8 @@ public class Blink : AWeapon
         if (Physics.Raycast(checkRay, out RaycastHit hit, blinkDistance, layer))
         {
             Debug.Log("Через препятсвие можно пройти");
-            blinkBody.transform.position = blinkGun.position + blinkGun.forward * blinkDistance;
+            // blinkBody.transform.position = blinkGun.position + blinkGun.forward * blinkDistance;
+            blinkBody.transform.position = hit.point + (hit.point - blinkGun.position).normalized * inLayerBlinkDistance;
             isLayerBlink = true;
             blinkBody.transform.LookAt(hit.point);
         }
