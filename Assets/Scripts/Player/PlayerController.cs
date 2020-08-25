@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         moveY -= rotationInput.y * SensY;
         moveY = ClampAngle(moveY, MinMax_Y.x, MinMax_Y.y);
 
-        moveX += rotationInput.x * SensX;
+        moveX = transform.rotation.eulerAngles.y + rotationInput.x * SensX;
 
         transform.rotation = Quaternion.Euler(0, moveX, 0);
 

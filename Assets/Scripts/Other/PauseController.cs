@@ -45,4 +45,10 @@ public class PauseController
         SceneManager.LoadScene(scene.buildIndex);
     }
 
+
+    public static void ChangeTime(float value)
+    {
+        Time.timeScale = value;
+    }
+
 }

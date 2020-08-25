@@ -39,26 +39,28 @@ public class PlayerMovement : APlayerMovement
 
     public override void Move(Vector3 direction)
     {
+        bool isCallAlready = false;
         direction = direction.normalized;
         foreach (var type in moveTypeSpeeds)
         {
-            if (moveType == type.Key)
+            if (moveType == type.Key && !isCallAlready)
             {
+                isCallAlready = true;
                 direction = new Vector3(direction.x * type.Value, direction.y * jumpForce, direction.z * type.Value);
                 if (grounded)
                 {
                     var toAnim = direction.magnitude/correctToAnim;
                     movementEvents.OnAnimEvent(AnimationController.AnimationType.Movement, toAnim);
-                    body.AddForce(direction * Time.fixedDeltaTime, ForceMode.Impulse);
+                    body.AddForce(direction * Time.fixedDeltaTime * 100);
                 }
                 else
                 {
                     var newDirection = direction / speedInAir;
                     newDirection.y = -g;
-                    body.AddForce(newDirection * Time.fixedDeltaTime, ForceMode.Impulse);
+                    body.AddForce(newDirection * Time.fixedDeltaTime * 100);
                 }
 
-
+                
             }
         }
     }

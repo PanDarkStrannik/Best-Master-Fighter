@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256710891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.45, z: 0.062}
+  m_LocalPosition: {x: 0, y: -1.214, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7230216899918538134}
@@ -51,8 +51,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.69266367
-  m_Center: {x: 0.26179057, y: -0.08575654, z: -0.0140833855}
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &508991409
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508991409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0.86}
+  m_LocalPosition: {x: 0, y: 0, z: 0.807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6385403144310076576}
@@ -102,13 +102,17 @@ MonoBehaviour:
   events: {fileID: 0}
   layer:
     serializedVersion: 2
-    m_Bits: 0
-  toBlinkTime: 0.2
-  afterBlink: 5
+    m_Bits: 2048
+  toBlinkTime: 0.5
+  afterBlink: 15
   blinkBody: {fileID: 7230216899918538134}
   blinkDistance: 15
   gizmosColor: {r: 0, g: 0, b: 0, a: 0.7529412}
   blinkGun: {fileID: 508991410}
+  minDistanceToBlink: 3
+  timeScaleBeforeBlink: 0.1
+  timeScaleUntilLayerBlink: 0.1
+  secondsInLayerBlinkSloumo: 3
 --- !u!1 &7230216899918538138
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,8 +245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOnPlayer: {fileID: 6385403144310076576}
-  SensX: 1
-  SensY: 0.7
+  SensX: 1.5
+  SensY: 1
   MinMax_Y: {x: -40, y: 40}
   weaponChanger:
     weapons:
@@ -265,14 +269,14 @@ MonoBehaviour:
   moveType: 0
   moveTypes: 0000000001000000
   speeds:
-  - 12
-  - 40
-  jumpForce: 80
+  - 8
+  - 25
+  jumpForce: 30
   body: {fileID: 1293312930}
   groundCheckSphere: {fileID: 256710892}
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 3639
   g: 9.8
   speedInAir: 4
   movementEvents: {fileID: 1459097074}
@@ -323,6 +327,9 @@ MonoBehaviour:
     animTriggerName: Attack
     type: 0
   - animator: {fileID: 6385403145686564482}
+    animTriggerName: Walk/Run
+    type: 3
+  - animator: {fileID: 4235801787059850880}
     animTriggerName: Walk/Run
     type: 3
   animationEvents:
@@ -451,6 +458,36 @@ PrefabInstance:
       propertyPath: layer.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: 3833188911529408099, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: timeWeaponColider
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3833188911529408100, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 4.045231
+      objectReference: {fileID: 0}
+    - target: {fileID: 3833188911529408100, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.980986
+      objectReference: {fileID: 0}
+    - target: {fileID: 3833188911529408100, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -1.0736961
+      objectReference: {fileID: 0}
+    - target: {fileID: 3833188911529408100, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 2.6142974
+      objectReference: {fileID: 0}
+    - target: {fileID: 3833188911529408100, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.12705031
+      objectReference: {fileID: 0}
     - target: {fileID: 3833188911932542767, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
         type: 3}
       propertyPath: weaponAnim
@@ -465,6 +502,16 @@ PrefabInstance:
         type: 3}
       propertyPath: layer.m_Bits
       value: 3584
+      objectReference: {fileID: 0}
+    - target: {fileID: 3833188911932542767, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: attackTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3833188911932542767, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: toShootTime
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3833188912329331108, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
         type: 3}
@@ -536,6 +583,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3833188912631094149, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3833188912889186386, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
         type: 3}
       propertyPath: m_Name
@@ -575,7 +627,7 @@ PrefabInstance:
     - target: {fileID: 6298051110593039591, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.807
+      value: 0.93
       objectReference: {fileID: 0}
     - target: {fileID: 6298051110602173319, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
         type: 3}
@@ -585,6 +637,16 @@ PrefabInstance:
     - target: {fileID: 6298051110602173319, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
         type: 3}
       propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6298051110602173319, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6298051110953317633, guid: fd95cdccf20618446a5ebf6e2f8ae5c6,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

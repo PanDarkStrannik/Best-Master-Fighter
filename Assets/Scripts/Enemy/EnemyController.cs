@@ -11,11 +11,14 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private float timeAfterDetect=1f;
 
+    [SerializeField] private float attackDelay = 1f;
+
     [SerializeReference] private EnemyMovementController movement;
     [SerializeReference] private EnemyDetection detection;
     [SerializeReference] private EnemyWeaponLogic weapon;
     [SerializeReference] private MainEvents mainEvents;
 
+    private bool isAttackRecently = false;
 
     public void Start()
     {
@@ -55,13 +58,12 @@ public class EnemyController : MonoBehaviour
                 {
                     if (obj.CompareTag("Player"))
                     {
-
-
-                        if (!weapon.Attack(detection.DetectedColider.WeaponType)
-                            || !movement.MoveUponDistance(obj.transform, detection.DetectedColider.Radius, detection.DetectedColider.MoveType))
+                       
+                        if (!isAttackRecently)
                         {
-                            movement.MoveUponDistance(obj.transform, detection.DetectedColider.Radius * 2, detection.DetectedColider.MoveType);
+                            StartCoroutine(AttackLogic());
                         }
+                        MovementLogic(obj.transform);
                         break;
                     }
                 }
@@ -72,6 +74,26 @@ public class EnemyController : MonoBehaviour
 
 
   
+    private void MovementLogic(Transform objTransform)
+    {
+        if (!movement.MoveUponDistance(objTransform, detection.DetectedColider.Radius, detection.DetectedColider.MoveType))
+        {
+            movement.MoveUponDistance(objTransform, detection.DetectedColider.Radius * 2, detection.DetectedColider.MoveType);
+        }
+    }
+
+
+    private IEnumerator AttackLogic()
+    {
+        if (weapon.Attack(detection.DetectedColider.WeaponType))
+        {
+            isAttackRecently = true;
+            Debug.Log("Начали ждать");
+            yield return new WaitForSeconds(attackDelay);
+            Debug.Log("Закончили ждать");
+            isAttackRecently = false;
+        }
+    }
 
 
     #region Действия при эвентах

@@ -71,7 +71,6 @@ public class EnemyWeaponLogic : MonoBehaviour
                 wantDamagedObject = hit.transform.gameObject;
                 Debug.Log("По идее произошла атака");
                 currentWeapon.Weapon.Attack();
-               // AnimEvent?.Invoke(AnimationController.AnimationType.Attack);
                 return true;
             }
         }
