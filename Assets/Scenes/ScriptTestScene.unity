@@ -2227,18 +2227,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 508991411, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
-      propertyPath: inLayerBlinkDistance
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 885063586, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
       propertyPath: playerUI
       value: 
       objectReference: {fileID: 182006304}
-    - target: {fileID: 1293312928, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
-      propertyPath: groundCheckMask.m_Bits
-      value: 7735
-      objectReference: {fileID: 0}
     - target: {fileID: 5505282187759526130, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6275,6 +6267,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519876048935184500, guid: 893087a90d57a504cb4de7bf86a7c4f3,
+        type: 3}
+      propertyPath: damages.Array.data[0].damageType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5519876048935184503, guid: 893087a90d57a504cb4de7bf86a7c4f3,
         type: 3}

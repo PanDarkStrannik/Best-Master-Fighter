@@ -9,6 +9,10 @@ public class PlayerParamController : ParamController
     [SerializeField] protected List<GameObject> deactiveObjects;
     [SerializeField] private Vector3 torgueForceOnDeath;
 
+
+    public delegate void PlayerDamagedHelper();
+    public event PlayerDamagedHelper PlayerDamaged;
+
     private bool isFirstCheck = true;
 
     protected override void CheckTypeAndValues(DamagebleParam.ParamType type, float value, float maxValue)
@@ -20,6 +24,10 @@ public class PlayerParamController : ParamController
                 {
                     playerUI.InitializePlayerView(maxValue);
                     isFirstCheck = false;
+                }
+                else
+                {
+                    PlayerDamaged?.Invoke();
                 }
                 playerUI.ViewHealth(value);
                 break;

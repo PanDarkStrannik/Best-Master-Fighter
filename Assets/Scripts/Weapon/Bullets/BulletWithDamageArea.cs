@@ -9,7 +9,7 @@ public class BulletWithDamageArea : SimpleBullet
 
     protected override void OnDie()
     {
-        Debug.Log("Вызов он дай у BWDA");
+        base.OnDie();
         damageAreaObject.gameObject.GetComponent<Collider>().enabled = true;
         damageAreaObject.transform.parent = null;
         damageAreaObject.transform.position = gameObject.transform.position;

@@ -8,6 +8,7 @@ public class SimpleBullet : MonoBehaviour, IBullet
     [SerializeField] private Rigidbody body;
     [SerializeField] private float speed = 5f;
     [SerializeField] private List<DamageByType> bulletDatas;
+    [SerializeReference] private ParticleSystem bulletDieEffect;
 
     private LayerMask layer;
     private bool notFistInit = false;
@@ -50,6 +51,12 @@ public class SimpleBullet : MonoBehaviour, IBullet
     {
         if (notFistInit)
         {
+            if(bulletDieEffect!=null)
+            {
+                bulletDieEffect.transform.position = transform.position;
+                bulletDieEffect.transform.parent = transform.parent;
+
+            }
             body.velocity = transform.forward * speed;
             StartCoroutine(ToDie());
         }
@@ -93,5 +100,11 @@ public class SimpleBullet : MonoBehaviour, IBullet
     protected virtual void OnDie()
     {
         Debug.Log("Вызов основной симпл булет, она пуста");
+        if (bulletDieEffect != null)
+        {
+            bulletDieEffect.transform.parent = null;
+            bulletDieEffect.transform.position = transform.position;
+            bulletDieEffect.Play();
+        }
     }
 }

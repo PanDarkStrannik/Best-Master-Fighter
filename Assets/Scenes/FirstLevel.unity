@@ -1365,14 +1365,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 641760990, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
+      propertyPath: strength
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 885063586, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
       propertyPath: playerUI
       value: 
       objectReference: {fileID: 1943824893}
-    - target: {fileID: 1293312930, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
-      propertyPath: m_Drag
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5505282187759526130, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1482,6 +1482,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: New Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7903741847997919924, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9,
+        type: 3}
+      propertyPath: inLayerBlinkDistance
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e1d7be5d4b0a284da7894dd9f2adbd9, type: 3}
