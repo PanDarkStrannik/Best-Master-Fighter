@@ -38,6 +38,10 @@ public class DamageblePlace : ADamageble
                         damage += weakData.Value;
                     }
                 }
+                if (damage < 0)
+                {
+                    damage = 0;
+                }
                 weak.ApplyDamage(damage);
 
                 Debug.Log(weak.Type + " " + weapon.DamageType + " " + damage);

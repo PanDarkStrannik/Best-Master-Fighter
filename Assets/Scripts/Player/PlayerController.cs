@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         if (cameraOnPlayer != null)
         {
-            cameraOnPlayer.rotation = Quaternion.Euler(moveY, moveX, 0);
+            cameraOnPlayer.rotation = Quaternion.Euler(moveY, cameraOnPlayer.eulerAngles.y, 0);
         }
 
     }
